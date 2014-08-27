@@ -37,7 +37,7 @@ class Transform(object):
         if not rot:
             rot = Quat()
 
-        self.rot = rot
+        self.rot = Quat(*rot)
 
         # Optional parent transform
         # self.parent = None
