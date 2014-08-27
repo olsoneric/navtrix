@@ -1,4 +1,5 @@
 
+from pedemath.matrix import Matrix44
 from pedemath.quat import invert_quat
 from pedemath.quat import lerp_quat
 from pedemath.quat import Quat
@@ -113,13 +114,17 @@ class Transform(object):
         return 2
 
     def get_matrix44(self):
-        """Create a matrix to represent the transform."""
-        # Create with rot.
+        """
+        Create a matrix to represent the transform.
+
+        Combine the rotation and translation with a matrix multiply:
+            transform_matrix = rot_matrix * translation_matrix
+        """
+
+        trans_mat = Matrix44.from_trans(self.pos)
         mat = self.rot.get_rot_matrix()
-        # Set pos.
-        mat.data[3][0] += self.pos.x
-        mat.data[3][1] += self.pos.y
-        mat.data[3][2] += self.pos.z
+
+        # Basically: matrix = rot matrix * trans matrix
+        mat *= trans_mat
 
         return mat
-
