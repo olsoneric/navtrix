@@ -122,7 +122,7 @@ class Transform(object):
         """
 
         trans_mat = Matrix44.from_trans(self.pos)
-        mat = self.rot.get_rot_matrix()
+        mat = self.rot.as_matrix44()
 
         # Basically: matrix = rot matrix * trans matrix
         mat *= trans_mat
