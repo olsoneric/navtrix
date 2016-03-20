@@ -55,9 +55,32 @@ class Transform(object):
         else:
             raise Exception("Unhandled type %s" % type(target))
 
-    def transform_in_place(self, point):
-        # TODO: add in rotation
+    def transform_vec_in_place(self, point):
+        # New function, testing.
+        if self.rot:
+            point.set(*self.rot.rotate_vec(point))
+            # import logging
+            # logging.info("ROT RESULT: {}".format(point))
         point += self.pos
+
+    def __lmul__(self, arg):
+        if isinstance(arg, Transform):
+            self.transform_self_in_place_by_transform(arg)
+        elif isinstance(arg, Vec3):
+            self.transform_self_in_place_by_vec3(arg)
+        else:
+            raise Exception("arg not handled yet")
+
+    def transform_self_in_place_by_transform(self, transform2):
+        # New function, testing.
+        self.pos += self.rot.rotate_vec(transform2.pos)
+        self.rot *= transform2.rot
+
+    def rotate_self_in_place(self, quat):
+        self.rot *= quat
+
+    def translate_self_in_place(self, vec):
+        self.pos += self.rot.rotate_vec(vec)
 
     def make_ident(self):
 
