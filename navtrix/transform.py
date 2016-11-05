@@ -31,14 +31,14 @@ class Transform(object):
     def __init__(self, pos=None, rot=None):
 
         if not pos:
-            pos = Vec3(0, 0, 0)
-
-        self.pos = Vec3(*pos)
+            self.pos = Vec3(0, 0, 0)
+        else:
+            self.pos = Vec3(*pos)
 
         if not rot:
-            rot = Quat()
-
-        self.rot = Quat(*rot)
+            self.rot = Quat()
+        else:
+            self.rot = Quat(*rot)
 
         # Optional parent transform
         # self.parent = None
