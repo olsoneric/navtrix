@@ -28,7 +28,8 @@ class Transform(object):
     # TODO: trying set and get, possibly move to attribute
     """
 
-    def __init__(self, pos=None, rot=None):
+    def __init__(self, pos=None, rot=None, name=""):
+        self.name = name
 
         if not pos:
             self.pos = Vec3(0, 0, 0)
